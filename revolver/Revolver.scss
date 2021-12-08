@@ -1,0 +1,22 @@
+.revolver {
+  position: relative;
+  overflow: hidden;
+}
+
+.revolver__origin {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+}
+
+.revolver__item {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: grab;
+}
+
+:root.revolver-grabbing {
+  cursor: grabbing !important;
+}
