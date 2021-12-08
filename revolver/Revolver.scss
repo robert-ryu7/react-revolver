@@ -1,6 +1,7 @@
 .revolver {
   position: relative;
   overflow: hidden;
+  user-select: none;
 }
 
 .revolver__origin {

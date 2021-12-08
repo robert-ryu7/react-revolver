@@ -7,7 +7,7 @@ import Revolver from './revolver/Revolver';
 import './demo.scss';
 
 ReactDOM.render(
-  <Revolver items={[1, 2, 3, 4]} itemWidth={100} itemHeight={108}>
+  <Revolver items={[1, 2, 3]} itemWidth={100} itemHeight={108} itemsGap={12}>
     {({ item, index }) => (
       <div className="item" data-index={index}>
         {item}
