@@ -25,6 +25,9 @@ function Revolver<T>({
   itemsGap = 0,
   children,
 }: RevolverProps<T>) {
+  const [offset, setOffset] = React.useState(0);
+  const [motionKey, setMotionKey] = React.useState(0);
+  const xRef = React.useRef(0);
   const revolverRef = React.useRef<HTMLDivElement>();
   const [revolverWidth, setRevolverWidth] = React.useState<number | null>(null);
   const [panInfo, setPanInfo] = React.useState<{
@@ -37,11 +40,20 @@ function Revolver<T>({
 
   const handlePanEnd = React.useCallback<HammerListener>(() => {
     setPanInfo(null);
+    setOffset(Math.round(-xRef.current / itemDistance));
   }, []);
 
   const handlePan = React.useCallback<HammerListener>((event) => {
     setPanInfo({ deltaX: event.deltaX });
   }, []);
+
+  const handleRest = React.useCallback(() => {
+    const itemIndex = wrapIndex(offset, items.length);
+    if(itemIndex === offset) return;
+    setOffset(itemIndex);
+    console.log({ offset, itemIndex });
+    setMotionKey((s) => s + 1);
+  }, [offset]);
 
   React.useEffect(() => {
     document.documentElement.classList.toggle('revolver-grabbing', !!panInfo);
@@ -64,10 +76,13 @@ function Revolver<T>({
         ref={revolverRef}
       >
         <Motion
+          key={motionKey}
           defaultStyle={{ x: 0 }}
-          style={{ x: spring(panInfo?.deltaX ?? 0) }}
+          style={{ x: spring((panInfo?.deltaX ?? 0) - offset * itemDistance) }}
+          onRest={handleRest}
         >
           {({ x }) => {
+            xRef.current = x;
             const middleItemIndex = Math.round(-x / itemDistance);
             const firstIndex = middleItemIndex - wingItemsCount;
 
