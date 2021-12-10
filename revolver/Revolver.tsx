@@ -49,7 +49,7 @@ function Revolver<T>({
 
   const handleRest = React.useCallback(() => {
     const itemIndex = wrapIndex(offset, items.length);
-    if(itemIndex === offset) return;
+    if (itemIndex === offset) return;
     setOffset(itemIndex);
     console.log({ offset, itemIndex });
     setMotionKey((s) => s + 1);
@@ -97,6 +97,7 @@ function Revolver<T>({
                   return (
                     <Hammer key={key} onPanEnd={handlePanEnd} onPan={handlePan}>
                       <div
+                        key={key}
                         className="revolver__item"
                         style={{
                           width: itemWidth,
