@@ -8,11 +8,7 @@ import './demo.scss';
 
 ReactDOM.render(
   <Revolver items={[1, 2, 3]} itemWidth={100} itemHeight={108} itemsGap={12}>
-    {({ item, index }) => (
-      <div className="item" data-index={index}>
-        {item}
-      </div>
-    )}
+    {(item) => <div className="item">{item}</div>}
   </Revolver>,
   document.getElementById('root')
 );
